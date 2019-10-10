@@ -22,7 +22,7 @@ public class Order
     @JsonIgnoreProperties("orders")
     private Customer custcode;
 
-    public Order(double ordamount, double advanceamount, String orderdescription, Customer custcode)
+    public Order(double ordamount, double advanceamount, Customer custcode, String orderdescription)
     {
         this.ordamount = ordamount;
         this.advanceamount = advanceamount;
