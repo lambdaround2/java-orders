@@ -1,5 +1,7 @@
 package com.amlane.javaorders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,10 @@ public class Order
     private double advanceamount;
     private String orderdescription;
 
+    @ManyToOne
+    @JoinColumn(name = "custcode",
+                nullable = false)
+    @JsonIgnoreProperties("orders")
     private long custcode;
 
     public Order(double ordamount, double advanceamount, String orderdescription, long custcode)
@@ -26,6 +32,7 @@ public class Order
 
     public Order()
     {
+        // default constructor
     }
 
     public long getOrdnum()

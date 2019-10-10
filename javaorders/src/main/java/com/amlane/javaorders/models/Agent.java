@@ -36,6 +36,7 @@ public class Agent
 
     public Agent()
     {
+        // default constructor
     }
 
     public long getAgentcode()

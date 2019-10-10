@@ -3,6 +3,8 @@ package com.amlane.javaorders.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -31,6 +33,11 @@ public class Customer
     @JsonIgnoreProperties("customers")
     private long agentcode;
 
+    @OneToMany(mappedBy = "custcode",
+               cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("custcode")
+    private List<Order> orders = new ArrayList<>();
+
     public Customer(String custname, String custcity, String workingarea, String custcountry, String grade, double openingamt, double receiveamt, double paymentamt, double outstandingamt, String phone, long agentcode)
     {
         this.custname = custname;
@@ -48,6 +55,7 @@ public class Customer
 
     public Customer()
     {
+        // default constructor
     }
 
     public long getCustcode()
