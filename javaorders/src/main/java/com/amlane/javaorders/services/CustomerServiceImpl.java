@@ -34,6 +34,7 @@ public class CustomerServiceImpl implements CustomerService
         return null;
     }
 
+    @Transactional
     @Override
     public Customer save(Customer customer)
     {
