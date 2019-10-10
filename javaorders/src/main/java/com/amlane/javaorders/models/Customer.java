@@ -177,4 +177,14 @@ public class Customer
     {
         this.agentcode = agentcode;
     }
+
+    public List<Order> getOrders()
+    {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders)
+    {
+        this.orders = orders;
+    }
 }
