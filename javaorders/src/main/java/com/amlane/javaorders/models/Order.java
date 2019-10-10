@@ -20,9 +20,9 @@ public class Order
     @JoinColumn(name = "custcode",
                 nullable = false)
     @JsonIgnoreProperties("orders")
-    private long custcode;
+    private Customer custcode;
 
-    public Order(double ordamount, double advanceamount, String orderdescription, long custcode)
+    public Order(double ordamount, double advanceamount, String orderdescription, Customer custcode)
     {
         this.ordamount = ordamount;
         this.advanceamount = advanceamount;
@@ -75,12 +75,12 @@ public class Order
         this.orderdescription = orderdescription;
     }
 
-    public long getCustcode()
+    public Customer getCustcode()
     {
         return custcode;
     }
 
-    public void setCustcode(long custcode)
+    public void setCustcode(Customer custcode)
     {
         this.custcode = custcode;
     }

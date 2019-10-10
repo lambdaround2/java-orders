@@ -31,14 +31,14 @@ public class Customer
     @JoinColumn(name = "agentcode",
                 nullable = false)
     @JsonIgnoreProperties("customers")
-    private long agentcode;
+    private Agent agentcode;
 
     @OneToMany(mappedBy = "custcode",
                cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("custcode")
+    @JsonIgnoreProperties("customers")
     private List<Order> orders = new ArrayList<>();
 
-    public Customer(String custname, String custcity, String workingarea, String custcountry, String grade, double openingamt, double receiveamt, double paymentamt, double outstandingamt, String phone, long agentcode)
+    public Customer(String custname, String custcity, String workingarea, String custcountry, String grade, double openingamt, double receiveamt, double paymentamt, double outstandingamt, String phone, Agent agentcode)
     {
         this.custname = custname;
         this.custcity = custcity;
@@ -168,12 +168,12 @@ public class Customer
         this.phone = phone;
     }
 
-    public long getAgentcode()
+    public Agent getAgentcode()
     {
         return agentcode;
     }
 
-    public void setAgentcode(long agentcode)
+    public void setAgentcode(Agent agentcode)
     {
         this.agentcode = agentcode;
     }
