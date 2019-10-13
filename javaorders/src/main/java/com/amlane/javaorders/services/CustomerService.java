@@ -10,9 +10,9 @@ public interface CustomerService
 
     Customer findById(long id);
 
-    Customer save(Customer agent);
+    Customer save(Customer customer);
 
-    Customer update(Customer agent, long id);
+    Customer update(Customer customer, long id);
 
     void delete(long id);
 }

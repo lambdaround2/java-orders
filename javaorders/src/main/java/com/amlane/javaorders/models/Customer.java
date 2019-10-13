@@ -27,18 +27,19 @@ public class Customer
     private double outstandingamt;
     private String phone;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "agentcode",
                 nullable = false)
-    @JsonIgnoreProperties("customers")
-    private Agent agentcode;
+    @JsonIgnoreProperties({"customers", "hibernateLazyInitializer"})
+    private Agent agent;
 
-    @OneToMany(mappedBy = "custcode",
-               cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("customers")
+    @OneToMany(mappedBy = "customer",
+               cascade = CascadeType.ALL,
+               orphanRemoval = true)
+    @JsonIgnoreProperties("customer")
     private List<Order> orders = new ArrayList<>();
 
-    public Customer(String custname, String custcity, String workingarea, String custcountry, String grade, double openingamt, double receiveamt, double paymentamt, double outstandingamt, String phone, Agent agentcode)
+    public Customer(String custname, String custcity, String workingarea, String custcountry, String grade, double openingamt, double receiveamt, double paymentamt, double outstandingamt, String phone, Agent agent)
     {
         this.custname = custname;
         this.custcity = custcity;
@@ -50,7 +51,7 @@ public class Customer
         this.paymentamt = paymentamt;
         this.outstandingamt = outstandingamt;
         this.phone = phone;
-        this.agentcode = agentcode;
+        this.agent = agent;
     }
 
     public Customer()
@@ -168,13 +169,23 @@ public class Customer
         this.phone = phone;
     }
 
-    public Agent getAgentcode()
+    public Agent getAgent()
     {
-        return agentcode;
+        return agent;
     }
 
-    public void setAgentcode(Agent agentcode)
+    public void setAgent(Agent agent)
     {
-        this.agentcode = agentcode;
+        this.agent = agent;
+    }
+
+    public List<Order> getOrders()
+    {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders)
+    {
+        this.orders = orders;
     }
 }

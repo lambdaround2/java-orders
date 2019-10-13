@@ -14,20 +14,20 @@ public class Order
 
     private double ordamount;
     private double advanceamount;
-    private String orderdescription;
+    private String orddescription;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "custcode",
                 nullable = false)
-    @JsonIgnoreProperties("orders")
-    private Customer custcode;
+    @JsonIgnoreProperties({"orders", "hibernateLazyInitializer"})
+    private Customer customer;
 
-    public Order(double ordamount, double advanceamount, Customer custcode, String orderdescription)
+    public Order(double ordamount, double advanceamount, Customer customer, String orddescription)
     {
         this.ordamount = ordamount;
         this.advanceamount = advanceamount;
-        this.orderdescription = orderdescription;
-        this.custcode = custcode;
+        this.orddescription = orddescription;
+        this.customer = customer;
     }
 
     public Order()
@@ -65,23 +65,29 @@ public class Order
         this.advanceamount = advanceamount;
     }
 
-    public String getOrderdescription()
+    public Customer getCustomer()
     {
-        return orderdescription;
+        return customer;
     }
 
-    public void setOrderdescription(String orderdescription)
+    public void setCustomer(Customer customer)
     {
-        this.orderdescription = orderdescription;
+        this.customer = customer;
     }
 
-    public Customer getCustcode()
+    public String getOrddescription()
     {
-        return custcode;
+        return orddescription;
     }
 
-    public void setCustcode(Customer custcode)
+    public void setOrddescription(String orddescription)
     {
-        this.custcode = custcode;
+        this.orddescription = orddescription;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Order{" + "ordnum=" + ordnum + ", ordamount=" + ordamount + ", advanceamount=" + advanceamount + ", orddescription='" + orddescription + '\'' + '}';
     }
 }
