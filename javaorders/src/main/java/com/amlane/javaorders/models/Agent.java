@@ -20,9 +20,9 @@ public class Agent
     private String phone;
     private String country;
 
-    @OneToMany(mappedBy = "agentcode",
+    @OneToMany(mappedBy = "agent",
                cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("agents")
+    @JsonIgnoreProperties("agentcode")
     private List<Customer> customers = new ArrayList<>();
 
     public Agent(String agentname, String workingarea, double commission, String phone, String country)
