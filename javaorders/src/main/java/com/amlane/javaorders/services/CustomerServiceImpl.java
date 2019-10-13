@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,8 @@ public class CustomerServiceImpl implements CustomerService
     @Autowired
     private AgentService agentService;
 
+
+    // get all customers
     @Override
     public List<Customer> findAll()
     {
@@ -31,12 +34,17 @@ public class CustomerServiceImpl implements CustomerService
         return list;
     }
 
+
+    // get customer by ID
     @Override
-    public Customer findById(long id)
+    public Customer findById(long id) throws EntityNotFoundException
     {
-        return null;
+        return custrepos.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
     }
 
+
+    // post new customer
     @Transactional
     @Override
     public Customer save(Customer customer)
@@ -67,7 +75,76 @@ public class CustomerServiceImpl implements CustomerService
     @Override
     public Customer update(Customer customer, long id)
     {
-        return null;
+        Customer currentCust = custrepos.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+
+        if(customer.getCustname() != null)
+        {
+            currentCust.setCustname(customer.getCustname());
+        }
+
+        if(customer.getCustcity() != null)
+        {
+            currentCust.setCustcity(customer.getCustcity());
+        }
+
+        if(customer.getWorkingarea() != null)
+        {
+            currentCust.setWorkingarea(customer.getWorkingarea());
+        }
+
+        if(customer.getCustcountry() != null)
+        {
+            currentCust.setCustcountry(customer.getCustcountry());
+        }
+
+        if(customer.getGrade() != null)
+        {
+            currentCust.setGrade(customer.getGrade());
+        }
+
+        // double cannot be compared to null
+
+        if(customer.getOpeningamt() != 0)
+        {
+            currentCust.setOpeningamt(customer.getOpeningamt());
+        }
+
+        if(customer.getReceiveamt() != 0)
+        {
+            currentCust.setReceiveamt(customer.getReceiveamt());
+        }
+
+        if(customer.getPaymentamt() != 0)
+        {
+            currentCust.setPaymentamt(customer.getPaymentamt());
+        }
+
+        if(customer.getOutstandingamt() != 0)
+        {
+            currentCust.setOutstandingamt(customer.getOutstandingamt());
+        }
+
+        if(customer.getPhone() != null)
+        {
+            currentCust.setPhone(customer.getPhone());
+        }
+
+        if(customer.getAgent() != null)
+        {
+            currentCust.setAgent(customer.getAgent());
+        }
+
+        if(customer.getOrders().size() > 0)
+        {
+            for(Order o : customer.getOrders())
+            {
+                currentCust.getOrders().add(new Order(o.getOrdamount(),
+                        o.getAdvanceamount(), currentCust, o.getOrddescription()));
+            }
+        }
+
+        return custrepos.save(currentCust);
     }
 
     @Override

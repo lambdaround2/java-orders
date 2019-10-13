@@ -48,4 +48,14 @@ public class CustomerController
                 responseHeaders, HttpStatus.CREATED);
 
     }
+
+    @PutMapping(value = "/update/{custcode}",
+                consumes = {"application/json"},
+                produces = {"application/json"})
+    public ResponseEntity<?> updateCustomer(@RequestBody Customer updateCustomer,
+                                            @PathVariable long custcode)
+    {
+        customerService.update(updateCustomer, custcode);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
