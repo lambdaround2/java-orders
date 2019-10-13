@@ -58,4 +58,11 @@ public class CustomerController
         customerService.update(updateCustomer, custcode);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/delete/{custcode}")
+    public ResponseEntity<?> deleteCustomerById(@PathVariable long custcode)
+    {
+        customerService.delete(custcode);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

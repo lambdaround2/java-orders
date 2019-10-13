@@ -147,9 +147,15 @@ public class CustomerServiceImpl implements CustomerService
         return custrepos.save(currentCust);
     }
 
+    @Transactional
     @Override
     public void delete(long id)
     {
-
+        if(custrepos.findById(id).isPresent())
+        {
+            custrepos.deleteById(id);
+        } else {
+            throw new EntityNotFoundException(Long.toString(id));
+        }
     }
 }
